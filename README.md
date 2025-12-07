@@ -1,3 +1,13 @@
+# 9xf Capital
+
+> **IMPORTANT DISCLAIMER**
+> 
+> This is a **hobby project** and a personal idea exploration. It is **NOT SEC compliant**, **NOT production-ready**, and **NOT intended for actual use** in securities offerings or fundraising activities.
+> 
+> This project is purely for educational and experimental purposes. Do not use this software for any real financial transactions, securities offerings, or regulatory filings. The creator assumes no liability for any misuse of this codebase.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
