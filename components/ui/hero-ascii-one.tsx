@@ -1,138 +1,35 @@
 'use client';
 
-import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const FloatingSphere = dynamic(() => import('./floating-sphere'), { ssr: false });
 
 export default function HeroAsciiOne() {
-  useEffect(() => {
-    const embedScript = document.createElement('script');
-    embedScript.type = 'text/javascript';
-    embedScript.textContent = `
-      !function(){
-        if(!window.UnicornStudio){
-          window.UnicornStudio={isInitialized:!1};
-          var i=document.createElement("script");
-          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.33/dist/unicornStudio.umd.js";
-          i.onload=function(){
-            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
-          };
-          (document.head || document.body).appendChild(i)
-        }
-      }();
-    `;
-    document.head.appendChild(embedScript);
-
-    // Add CSS to hide branding elements and crop canvas
-    const style = document.createElement('style');
-    style.textContent = `
-      [data-us-project] {
-        position: relative !important;
-        overflow: hidden !important;
-      }
-      
-      [data-us-project] canvas {
-        clip-path: inset(0 0 10% 0) !important;
-      }
-      
-      [data-us-project] * {
-        pointer-events: none !important;
-      }
-      [data-us-project] a[href*="unicorn"],
-      [data-us-project] button[title*="unicorn"],
-      [data-us-project] div[title*="Made with"],
-      [data-us-project] .unicorn-brand,
-      [data-us-project] [class*="brand"],
-      [data-us-project] [class*="credit"],
-      [data-us-project] [class*="watermark"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        top: -9999px !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Function to aggressively hide branding
-    const hideBranding = () => {
-      // Target all possible UnicornStudio containers
-      const selectors = [
-        '[data-us-project]',
-        '[data-us-project="OMzqyUv6M3kSnv0JeAtC"]',
-        '.unicorn-studio-container',
-        'canvas[aria-label*="Unicorn"]'
-      ];
-      
-      selectors.forEach(selector => {
-        const containers = document.querySelectorAll(selector);
-        containers.forEach(container => {
-          // Find and remove any elements containing branding text
-          const allElements = container.querySelectorAll('*');
-          allElements.forEach(el => {
-            const text = (el.textContent || '').toLowerCase();
-            const title = (el.getAttribute('title') || '').toLowerCase();
-            const href = (el.getAttribute('href') || '').toLowerCase();
-            
-            if (
-              text.includes('made with') || 
-              text.includes('unicorn') ||
-              title.includes('made with') ||
-              title.includes('unicorn') ||
-              href.includes('unicorn.studio')
-            ) {
-              (el as HTMLElement).style.display = 'none';
-              (el as HTMLElement).style.visibility = 'hidden';
-              (el as HTMLElement).style.opacity = '0';
-              (el as HTMLElement).style.pointerEvents = 'none';
-              (el as HTMLElement).style.position = 'absolute';
-              (el as HTMLElement).style.left = '-9999px';
-              (el as HTMLElement).style.top = '-9999px';
-              // Also try to remove it
-              try { el.remove(); } catch(e) {}
-            }
-          });
-        });
-      });
-    };
-
-    // Run immediately and more frequently
-    hideBranding();
-    const interval = setInterval(hideBranding, 50); // More frequent checks
-    
-    // Also try after delays
-    setTimeout(hideBranding, 500);
-    setTimeout(hideBranding, 1000);
-    setTimeout(hideBranding, 2000);
-    setTimeout(hideBranding, 5000);
-    setTimeout(hideBranding, 10000);
-
-    return () => {
-      clearInterval(interval);
-      document.head.removeChild(embedScript);
-      document.head.removeChild(style);
-    };
-  }, []);
-
   return (
     <main className="relative min-h-screen overflow-hidden bg-neutral-950 font-[family-name:var(--font-manrope)]">
-      {/* Background Animation - toned down with overlay */}
-      <div className="absolute inset-0 w-full h-full hidden lg:block">
-        <div 
-          data-us-project="OMzqyUv6M3kSnv0JeAtC" 
-          style={{ width: '100%', height: '100%', minHeight: '100vh' }}
-        />
-        {/* Dark overlay to tone down the animation */}
-        <div className="absolute inset-0 bg-neutral-950/60 pointer-events-none" />
+      {/* Unified background - full screen */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
+        
+        {/* Animated gradient orbs */}
+        <div className="gradient-orb gradient-orb-1" />
+        <div className="gradient-orb gradient-orb-2" />
+        <div className="gradient-orb gradient-orb-3" />
+        
+        {/* Noise texture overlay */}
+        <div className="absolute inset-0 noise-texture opacity-[0.03]" />
+        
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-radial-vignette" />
       </div>
 
-      {/* Mobile subtle background */}
-      <div className="absolute inset-0 w-full h-full lg:hidden">
-        <div className="stars-bg absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-950/95 to-neutral-900" />
+      {/* 3D Animation - positioned left but extends across */}
+      <div className="absolute inset-0 hidden lg:block pointer-events-none">
+        <div className="absolute inset-y-0 left-0 w-[60%]">
+          <FloatingSphere />
+        </div>
       </div>
-
-      {/* Subtle grid pattern overlay */}
-      <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
 
       {/* Top Header */}
       <header className="absolute top-0 left-0 right-0 z-20 border-b border-white/10">
@@ -165,7 +62,7 @@ export default function HeroAsciiOne() {
       {/* Main Content */}
       <div className="relative z-10 flex min-h-screen items-center pt-20 lg:pt-0">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="max-w-2xl lg:ml-auto lg:mr-[8%]">
+          <div className="max-w-xl lg:ml-auto lg:mr-0 lg:pr-12">
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-px bg-white/30" />
@@ -232,20 +129,63 @@ export default function HeroAsciiOne() {
       </footer>
 
       <style jsx>{`
-        .grid-pattern {
-          background-image: 
-            linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
-          background-size: 60px 60px;
+        .gradient-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.15;
         }
         
-        .stars-bg {
-          background-image: 
-            radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3), transparent),
-            radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.2), transparent),
-            radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.25), transparent),
-            radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.15), transparent);
-          background-size: 200px 200px;
+        .gradient-orb-1 {
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(30, 30, 50, 0.8) 0%, transparent 70%);
+          top: -200px;
+          left: -100px;
+          animation: float1 25s ease-in-out infinite;
+        }
+        
+        .gradient-orb-2 {
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(20, 25, 40, 0.6) 0%, transparent 70%);
+          bottom: -150px;
+          right: -100px;
+          animation: float2 30s ease-in-out infinite;
+        }
+        
+        .gradient-orb-3 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(25, 20, 35, 0.5) 0%, transparent 70%);
+          top: 40%;
+          left: 30%;
+          animation: float3 20s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, 20px) scale(1.05); }
+          66% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+        
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-25px, -15px) scale(0.95); }
+          66% { transform: translate(20px, -25px) scale(1.05); }
+        }
+        
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(40px, -30px) scale(1.1); }
+        }
+        
+        .noise-texture {
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        .bg-radial-vignette {
+          background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.4) 100%);
         }
       `}</style>
     </main>
