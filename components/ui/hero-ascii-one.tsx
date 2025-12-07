@@ -138,8 +138,11 @@ export default function HeroAsciiOne() {
       <header className="absolute top-0 left-0 right-0 z-20 border-b border-white/10">
         <div className="container mx-auto px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-5">
-            <div className="text-white text-lg lg:text-xl font-semibold tracking-tight">
-              9xf Capital
+            <div className="flex items-baseline text-white" style={{ letterSpacing: '-0.02em' }}>
+              <span className="font-[family-name:var(--font-manrope)] text-2xl lg:text-3xl font-bold leading-none">9</span>
+              <span className="font-[family-name:var(--font-manrope)] text-base lg:text-xl font-light leading-none">x</span>
+              <span className="font-[family-name:var(--font-marck)] text-2xl lg:text-3xl font-medium leading-none">f</span>
+              <span className="font-[family-name:var(--font-manrope)] text-2xl lg:text-3xl font-semibold tracking-tight ml-2">Capital</span>
             </div>
             <div className="h-4 w-px bg-white/20" />
             <span className="text-white/40 text-xs font-medium tracking-wide uppercase">Fundraising</span>
@@ -221,7 +224,7 @@ export default function HeroAsciiOne() {
           </div>
           
           <div className="flex items-center gap-6 text-xs text-white/30">
-            <span>© 2025 9xf Capital</span>
+            <span>© 2025 <span className="font-[family-name:var(--font-manrope)] font-bold">9</span><span className="font-[family-name:var(--font-manrope)] font-light">x</span><span className="font-[family-name:var(--font-marck)]">f</span> Capital</span>
             <a href="#" className="hover:text-white/50 transition-colors">Privacy</a>
             <a href="#" className="hover:text-white/50 transition-colors">Terms</a>
           </div>
