@@ -85,7 +85,7 @@
 | ID | Requirement | Priority |
 |----|-------------|----------|
 | CF-05 | System determines financial requirement tier based on raise amount | P0 |
-| CF-06 | Tier thresholds: <$124k (CEO certified), $124k-$1.235M (reviewed), >$1.235M (audited for repeat) | P0 |
+| CF-06 | Tier thresholds: <$124k (CEO certified), $124k-$1.235M (reviewed), $1.235M-$5M (reviewed for first-time issuers, audited for repeat issuers) | P0 |
 | CF-07 | Users can upload financial statements (PDF, Excel) | P0 |
 | CF-08 | System tracks financial statement status: Draft, Under Review, Certified | P1 |
 | CF-09 | Users can input CPA firm details for reviewed/audited statements | P1 |
@@ -99,7 +99,7 @@
 | CF-12 | Users can generate shareable TTW landing page | P1 |
 | CF-13 | System collects email addresses of interested investors | P1 |
 | CF-14 | TTW materials must be archived upon Form C filing | P0 |
-| CF-15 | System exports TTW materials for SEC submission | P1 |
+| CF-15 | System exports TTW materials for mandatory SEC submission (copies/screenshots required) | P0 |
 
 ### 2.4 Form C Builder
 
@@ -128,7 +128,7 @@
 
 | ID | Requirement | Priority |
 |----|-------------|----------|
-| CF-29 | System sends Form C-AR reminder 90 days before due date | P0 |
+| CF-29 | System sends Form C-AR reminder at 90, 60, 30, 7 days before due date (120 days after fiscal year-end) | P0 |
 | CF-30 | Form C-AR builder with guided sections | P1 |
 | CF-31 | System tracks annual reporting obligation status | P0 |
 | CF-32 | Users can mark reporting obligation as terminated (with reason) | P1 |

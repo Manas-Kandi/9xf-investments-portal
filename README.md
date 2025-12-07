@@ -144,25 +144,30 @@ Infrastructure  Vercel, AWS S3
 
 ## Roadmap
 
-### Phase 1: Foundation (Now)
+### Phase 1: Prerequisites & Foundation (Weeks 1-4)
 - [x] Design system and documentation
 - [ ] User authentication with MFA
-- [ ] Company onboarding flow
+- [ ] Company onboarding (entity type, EIN, state)
+- [ ] Team roster with bad actor check
 - [ ] Cap table management
+- [ ] EDGAR access wizard (Form ID, CIK/CCC)
 
-### Phase 2: Reg CF Launch
+### Phase 2A: Reg CF Launch (Weeks 5-8)
 - [ ] Form C builder with validation
 - [ ] Portal integration (Wefunder, Republic)
 - [ ] Campaign dashboard
 - [ ] Investor waitlist
 
-### Phase 3: Reg A+ Launch
+### Phase 2B: Reg A+ Launch (Weeks 9-13)
+- [ ] Vendor directory (attorneys, PCAOB auditors, broker-dealers)
+- [ ] 2-year audit coordination
 - [ ] Form 1-A builder
 - [ ] SEC comment tracker
 - [ ] White-label offering pages
 - [ ] Direct investment flow
+- [ ] Ongoing compliance (1-SA, 1-K, 1-U)
 
-### Phase 4: Scale
+### Phase 3: Scale
 - [ ] AI-assisted form generation
 - [ ] Secondary market for shares
 - [ ] Mobile apps (iOS, Android)

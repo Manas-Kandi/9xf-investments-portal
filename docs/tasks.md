@@ -139,8 +139,8 @@ This document breaks down implementation into sprints. Each task includes estima
   - [ ] Create step-by-step Form ID guide
   - [ ] Step 1: Explain EDGAR and why it's needed
   - [ ] Step 2: Link to SEC EDGAR Filer Management
-  - [ ] Step 3: Notarization instructions with template download
-  - [ ] Step 4: CIK and CCC input fields
+  - [ ] Step 3: Notarization instructions with printable template download (notarized document required for SEC upload)
+  - [ ] Step 4: CIK and CCC input fields (received within 48 hours of SEC approval)
   - [ ] Validate CIK format (10 digits)
   - [ ] Store credentials encrypted
   - [ ] Show EDGAR status on company dashboard
@@ -181,9 +181,9 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T2.1
 - **Tasks**:
-  - [ ] Calculate financial requirement tier based on raise amount
+  - [ ] Calculate financial requirement tier based on raise amount (including prior Reg CF raises in last 12 months)
   - [ ] Display tier requirements (CEO certified / Reviewed / Audited)
-  - [ ] Check if repeat issuer (requires audited for >$1.235M)
+  - [ ] Track if first-time vs repeat issuer (first-time: reviewed OK for $1.235M-$5M; repeat: audited required)
   - [ ] Create `financial_statements` table
   - [ ] Build upload interface for financial documents
   - [ ] Track statement status (Draft, Under Review, Certified)

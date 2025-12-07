@@ -62,7 +62,7 @@ Portal Selection → Financials Upload → Testing the Waters
 **Screens:**
 1. **Portal Marketplace** — Compare Wefunder, Republic, StartEngine (fees, features)
 2. **Financials Center** — Upload reviewed/audited statements; auto-detect tier
-3. **TTW Campaign Builder** — Create compliant "testing the waters" materials with required legends
+3. **TTW Campaign Builder** — Create compliant "testing the waters" materials with required legends (auto-archived and exported for SEC upon Form C filing)
 4. **Form C Editor** — Guided form with live validation
 5. **Campaign Dashboard** — Real-time funding progress, investor list, 21-day countdown
 6. **Close Manager** — Rolling close triggers, Form C-U automation
@@ -82,7 +82,7 @@ Team Assembly → Audit Coordination → Form 1-A Builder → SEC Review Tracker
 4. **SEC Comment Tracker** — Upload comments, track revisions, manage response deadlines
 5. **Qualification Status** — Visual pipeline from filing to "No Comment" letter
 6. **Offering Page Builder** — White-label investment page for direct sales
-7. **Compliance Calendar** — 1-SA, 1-K, 1-U deadlines with auto-reminders
+7. **Compliance Calendar** — 1-SA, 1-K, 1-U deadlines with auto-reminders (1-U has critical 4-day filing deadline)
 
 ---
 
