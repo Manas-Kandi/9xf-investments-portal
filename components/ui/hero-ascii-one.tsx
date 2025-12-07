@@ -114,7 +114,7 @@ export default function HeroAsciiOne() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-neutral-950 font-sans">
+    <main className="relative min-h-screen overflow-hidden bg-neutral-950 font-[family-name:var(--font-manrope)]">
       {/* Background Animation - toned down with overlay */}
       <div className="absolute inset-0 w-full h-full hidden lg:block">
         <div 
@@ -145,10 +145,10 @@ export default function HeroAsciiOne() {
               <span className="font-[family-name:var(--font-manrope)] text-2xl lg:text-3xl font-semibold tracking-tight ml-2">Capital</span>
             </div>
             <div className="h-4 w-px bg-white/20" />
-            <span className="text-white/40 text-xs font-medium tracking-wide uppercase">Fundraising</span>
+            <span className="text-white/40 text-xs font-normal tracking-wide uppercase">Fundraising</span>
           </div>
           
-          <nav className="hidden lg:flex items-center gap-8 text-sm text-white/60">
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-normal text-white/60">
             <a href="#" className="hover:text-white transition-colors">Reg CF</a>
             <a href="#" className="hover:text-white transition-colors">Reg A+</a>
             <a href="#" className="hover:text-white transition-colors">Resources</a>
@@ -169,28 +169,28 @@ export default function HeroAsciiOne() {
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-px bg-white/30" />
-              <span className="text-white/50 text-xs font-medium tracking-widest uppercase">SEC Compliant</span>
+              <span className="text-white/50 text-xs font-normal tracking-widest uppercase">SEC Compliant</span>
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl lg:text-6xl font-semibold text-white mb-6 leading-[1.1] tracking-tight">
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
               Raise Capital
               <br />
               <span className="text-white/70">With Confidence</span>
             </h1>
 
             {/* Description */}
-            <p className="text-base lg:text-lg text-white/60 mb-8 leading-relaxed max-w-lg">
+            <p className="text-base lg:text-lg text-white/60 mb-8 leading-relaxed max-w-lg font-normal">
               Navigate Regulation CF and Regulation A+ fundraising with our guided platform. From Form ID to closing—every step, simplified.
             </p>
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-white text-neutral-900 font-medium text-sm rounded hover:bg-white/90 transition-colors">
+              <button className="px-6 py-3 bg-white text-neutral-900 font-semibold text-sm rounded hover:bg-white/90 transition-colors">
                 Start Your Raise
               </button>
               
-              <button className="px-6 py-3 bg-transparent border border-white/20 text-white font-medium text-sm rounded hover:bg-white/5 hover:border-white/30 transition-colors">
+              <button className="px-6 py-3 bg-transparent border border-white/20 text-white font-semibold text-sm rounded hover:bg-white/5 hover:border-white/30 transition-colors">
                 Learn More
               </button>
             </div>
@@ -198,18 +198,18 @@ export default function HeroAsciiOne() {
             {/* Stats row */}
             <div className="flex items-center gap-8 mt-12 pt-8 border-t border-white/10">
               <div>
-                <div className="text-2xl font-semibold text-white">$5M</div>
-                <div className="text-xs text-white/40 mt-1">Reg CF Limit</div>
+                <div className="text-2xl font-bold text-white">$5M</div>
+                <div className="text-xs font-normal text-white/40 mt-1">Reg CF Limit</div>
               </div>
               <div className="h-8 w-px bg-white/10" />
               <div>
-                <div className="text-2xl font-semibold text-white">$75M</div>
-                <div className="text-xs text-white/40 mt-1">Reg A+ Limit</div>
+                <div className="text-2xl font-bold text-white">$75M</div>
+                <div className="text-xs font-normal text-white/40 mt-1">Reg A+ Limit</div>
               </div>
               <div className="h-8 w-px bg-white/10" />
               <div>
-                <div className="text-2xl font-semibold text-white">21 Days</div>
-                <div className="text-xs text-white/40 mt-1">Min. Campaign</div>
+                <div className="text-2xl font-bold text-white">21 Days</div>
+                <div className="text-xs font-normal text-white/40 mt-1">Min. Campaign</div>
               </div>
             </div>
           </div>
@@ -219,11 +219,11 @@ export default function HeroAsciiOne() {
       {/* Bottom Footer - simplified */}
       <footer className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10">
         <div className="container mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
-          <div className="text-xs text-white/30 font-mono">
+          <div className="text-xs text-white/30 font-normal">
             v1.0.0
           </div>
           
-          <div className="flex items-center gap-6 text-xs text-white/30">
+          <div className="flex items-center gap-6 text-xs font-normal text-white/30">
             <span>© 2025 <span className="font-[family-name:var(--font-manrope)] font-bold">9</span><span className="font-[family-name:var(--font-manrope)] font-light">x</span><span className="font-[family-name:var(--font-marck)]">f</span> Capital</span>
             <a href="#" className="hover:text-white/50 transition-colors">Privacy</a>
             <a href="#" className="hover:text-white/50 transition-colors">Terms</a>
