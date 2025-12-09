@@ -10,7 +10,8 @@ import {
   Plus,
   ChevronRight,
   CheckCircle2,
-  Circle
+  Circle,
+  Shield
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -119,7 +120,7 @@ export default function DashboardView({ company, stats }: DashboardViewProps) {
       </motion.div>
 
       {/* Sections */}
-      <motion.div variants={itemVariants} className="grid lg:grid-cols-2 gap-6">
+      <motion.div variants={itemVariants} className="grid lg:grid-cols-3 gap-6">
         {/* Team Roster */}
         <Card>
           <CardHeader>
@@ -173,6 +174,43 @@ export default function DashboardView({ company, stats }: DashboardViewProps) {
               View full cap table
               <ChevronRight className="w-4 h-4" />
             </Link>
+          </CardContent>
+        </Card>
+
+        {/* Compliance / EDGAR */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Compliance</CardTitle>
+                <CardDescription>SEC filings and credentials</CardDescription>
+              </div>
+              {company.edgarStatus === 'active' ? (
+                 <Badge variant="success">Active</Badge>
+              ) : (
+                 <Badge variant="error">Action Required</Badge>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                 <div className="p-2 rounded-lg bg-white/5">
+                   <Shield className="w-5 h-5 text-white/50" />
+                 </div>
+                 <div>
+                   <p className="text-sm font-medium text-white">EDGAR Access</p>
+                   <p className="text-xs text-white/40">
+                     {company.edgarStatus === 'active' ? 'Credentials configured' : 'Form ID required'}
+                   </p>
+                 </div>
+              </div>
+              <Link href="/company/edgar" className="block">
+                <Button variant="secondary" className="w-full">
+                  {company.edgarStatus === 'active' ? 'Manage Credentials' : 'Start Setup'}
+                </Button>
+              </Link>
+            </div>
           </CardContent>
         </Card>
       </motion.div>

@@ -175,20 +175,20 @@ This document breaks down implementation into sprints. Each task includes estima
   - [ ] Export cap table as PDF
 - **Acceptance**: User can manage cap table manually and via CSV import ✅
 
-### T1.5 — EDGAR Access Wizard
+### T1.5 — EDGAR Access Wizard ✅ COMPLETED
 - **Effort**: 6 hours
 - **Owner**: Engineering
 - **Dependencies**: T1.1
 - **Tasks**:
-  - [ ] Create step-by-step Form ID guide
-  - [ ] Step 1: Explain EDGAR and why it's needed
-  - [ ] Step 2: Link to SEC EDGAR Filer Management
-  - [ ] Step 3: Notarization instructions with printable template download (notarized document required for SEC upload)
-  - [ ] Step 4: CIK and CCC input fields (received within 48 hours of SEC approval)
-  - [ ] Validate CIK format (10 digits)
-  - [ ] Store credentials encrypted
-  - [ ] Show EDGAR status on company dashboard
-- **Acceptance**: User can complete EDGAR setup and store credentials
+  - [x] Create step-by-step Form ID guide
+  - [x] Step 1: Explain EDGAR and why it's needed
+  - [x] Step 2: Link to SEC EDGAR Filer Management
+  - [x] Step 3: Notarization instructions with printable template download (notarized document required for SEC upload)
+  - [x] Step 4: CIK and CCC input fields (received within 48 hours of SEC approval)
+  - [x] Validate CIK format (10 digits)
+  - [x] Store credentials encrypted
+  - [x] Show EDGAR status on company dashboard
+- **Acceptance**: User can complete EDGAR setup and store credentials ✅
 
 ---
 
