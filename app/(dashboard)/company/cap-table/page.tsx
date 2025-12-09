@@ -324,58 +324,40 @@ function OverviewTab({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="grid lg:grid-cols-2 gap-8"
+      className="space-y-6"
     >
-      {/* Chart */}
+      {/* Chart - Full width */}
       <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
         <h3 className="text-lg font-semibold text-white mb-6">Ownership Distribution</h3>
         <OwnershipChart segments={chartSegments} totalShares={totalShares} />
       </div>
 
-      {/* Stats */}
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <p className="text-xs text-white/40 mb-1">Total Issued</p>
-            <p className="text-2xl font-bold text-white">{formatNumber(totalShares)}</p>
-          </div>
-          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <p className="text-xs text-white/40 mb-1">Shareholders</p>
-            <p className="text-2xl font-bold text-white">{shareholders.length}</p>
-          </div>
-          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <p className="text-xs text-white/40 mb-1">Share Classes</p>
-            <p className="text-2xl font-bold text-white">{shareClasses.length}</p>
-          </div>
-          <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <p className="text-xs text-white/40 mb-1">Fully Diluted</p>
-            <p className="text-2xl font-bold text-white">
-              {formatNumber(shareClasses.reduce((sum, sc) => sum + sc.authorizedShares, 0))}
-            </p>
-          </div>
-        </div>
-
-        {/* Top Shareholders */}
-        <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-          <h4 className="text-sm font-medium text-white mb-4">Top Shareholders</h4>
-          <div className="space-y-3">
-            {shareholders
-              .sort((a, b) => b.shares - a.shares)
-              .slice(0, 5)
-              .map((sh, index) => (
-                <div key={sh.id} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-white/30 w-4">{index + 1}</span>
-                    <span className="text-sm text-white">{sh.name}</span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-sm font-mono text-white">
-                      {calculateOwnership(sh.shares, totalShares).toFixed(1)}%
-                    </span>
-                  </div>
+      {/* Bottom section - Top Shareholders */}
+      <div className="p-5 rounded-2xl border border-white/10 bg-white/5">
+        <h4 className="text-sm font-medium text-white mb-4">Top Shareholders</h4>
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+          {shareholders
+            .sort((a, b) => b.shares - a.shares)
+            .slice(0, 5)
+            .map((sh, index) => (
+              <motion.div 
+                key={sh.id} 
+                className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index }}
+              >
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white/70">
+                  {index + 1}
                 </div>
-              ))}
-          </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-white truncate">{sh.name}</p>
+                  <p className="text-xs text-white/40 font-mono">
+                    {calculateOwnership(sh.shares, totalShares).toFixed(1)}%
+                  </p>
+                </div>
+              </motion.div>
+            ))}
         </div>
       </div>
     </motion.div>
