@@ -248,14 +248,51 @@ model Raise {
   
   portal          Portal?        @relation(fields: [portalId], references: [id])
 
+  // Financials
+  priorRaisesAmount Decimal?     @default(0) @db.Decimal(12, 2)
+  isFirstTimeIssuer Boolean?     @default(true)
+  financialTier     String?      // Calculated requirement tier
+
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
   company         Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
   filings         Filing[]
   documents       Document[]
+  financialStatements FinancialStatement[]
 
   @@map("raises")
+}
+
+enum FinancialStatementType {
+  BALANCE_SHEET
+  INCOME_STATEMENT
+  CASH_FLOW
+  EQUITY_CHANGES
+  NOTES
+  AUDIT_REPORT
+}
+
+enum FinancialStatementStatus {
+  DRAFT
+  UNDER_REVIEW
+  CERTIFIED
+}
+
+model FinancialStatement {
+  id          String @id @default(cuid())
+  raiseId     String
+  type        FinancialStatementType
+  fileUrl     String
+  periodStart DateTime?
+  periodEnd   DateTime?
+  status      FinancialStatementStatus @default(DRAFT)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  raise       Raise    @relation(fields: [raiseId], references: [id], onDelete: Cascade)
+
+  @@map("financial_statements")
 }
 
 model Portal {
