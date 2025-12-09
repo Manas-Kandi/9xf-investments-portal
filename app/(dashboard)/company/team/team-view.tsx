@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Plus, Search, Filter, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ interface TeamViewProps {
 }
 
 export default function TeamView({ members }: TeamViewProps) {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -70,8 +72,7 @@ export default function TeamView({ members }: TeamViewProps) {
   };
 
   const handleBadActorCheck = (member: TeamMember) => {
-    // Navigate to bad actor questionnaire
-    console.log('Bad actor check for:', member.name);
+    router.push(`/company/team/${member.id}/bad-actor`);
   };
 
   const handleCloseModal = () => {

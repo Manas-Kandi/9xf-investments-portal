@@ -145,19 +145,19 @@ This document breaks down implementation into sprints. Each task includes estima
   - [x] Add role-based badges (Officer, Director, 20%+ Owner)
 - **Acceptance**: User can add team members with all required fields ✅
 
-### T1.3 — Bad Actor Questionnaire
+### T1.3 — Bad Actor Questionnaire ✅ COMPLETED
 - **Effort**: 6 hours
 - **Owner**: Engineering
 - **Dependencies**: T1.2
 - **Tasks**:
-  - [ ] Create questionnaire based on SEC Rule 506(d)
-  - [ ] 8 disqualifying event questions per team member
-  - [ ] Implement yes/no responses with explanation fields
-  - [ ] Flag team members with "Yes" answers
+  - [x] Create questionnaire based on SEC Rule 506(d)
+  - [x] 8 disqualifying event questions per team member
+  - [x] Implement yes/no responses with explanation fields
+  - [x] Flag team members with "Yes" answers
   - [ ] Block filing if any unresolved flags
-  - [ ] Add attestation checkbox for company owner
-  - [ ] Store questionnaire responses with timestamps
-- **Acceptance**: Bad actor check blocks filing if disqualifying events exist
+  - [x] Add attestation checkbox for company owner
+  - [x] Store questionnaire responses with timestamps
+- **Acceptance**: Bad actor check blocks filing if disqualifying events exist ✅
 
 ### T1.4 — Cap Table Management ✅ COMPLETED
 - **Effort**: 12 hours
