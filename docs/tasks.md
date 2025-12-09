@@ -87,16 +87,16 @@ This document breaks down implementation into sprints. Each task includes estima
   - [x] Create auth middleware for protected routes
 - **Acceptance**: Auth pages created (/login, /signup, /forgot-password), middleware protects routes, mock auth for development
 
-### T0.4 — CI/CD Pipeline
+### T0.4 — CI/CD Pipeline ✅ COMPLETED
 - **Effort**: 3 hours
 - **Owner**: Engineering
 - **Tasks**:
-  - [ ] Configure GitHub Actions for linting
-  - [ ] Add type checking to CI
-  - [ ] Set up Vercel deployment
-  - [ ] Configure preview deployments for PRs
-  - [ ] Add environment variable management
-- **Acceptance**: PRs trigger preview deployments automatically
+  - [x] Configure GitHub Actions for linting
+  - [x] Add type checking to CI
+  - [x] Set up Vercel deployment
+  - [x] Configure preview deployments for PRs
+  - [x] Add environment variable management
+- **Acceptance**: PRs trigger preview deployments automatically ✅
 
 ### T0.5 — Design System Foundation ✅ COMPLETED
 - **Effort**: 4 hours
@@ -116,34 +116,34 @@ This document breaks down implementation into sprints. Each task includes estima
 
 ## Sprint 1: Company Onboarding (Weeks 2-3)
 
-### T1.1 — Company Profile Form
+### T1.1 — Company Profile Form ✅ COMPLETED
 - **Effort**: 8 hours
 - **Owner**: Engineering
 - **Dependencies**: T0.3
 - **Tasks**:
   - [x] Create `companies` table schema (in Prisma)
-  - [ ] Build multi-step company creation wizard
-  - [ ] Step 1: Legal name, EIN (with validation), entity type
-  - [ ] Step 2: State of incorporation, formation date
-  - [ ] Step 3: Business address, mailing address
-  - [ ] Step 4: Fiscal year end selection
-  - [ ] Add logo upload with image cropping
-  - [ ] Implement form validation with Zod
-- **Acceptance**: User can create company profile with all required fields
+  - [x] Build multi-step company creation wizard
+  - [x] Step 1: Legal name, EIN (with validation), entity type
+  - [x] Step 2: State of incorporation, formation date
+  - [x] Step 3: Business address, mailing address
+  - [x] Step 4: Fiscal year end selection
+  - [x] Add logo upload with image cropping
+  - [x] Implement form validation with Zod
+- **Acceptance**: User can create company profile with all required fields ✅
 
-### T1.2 — Team Roster
+### T1.2 — Team Roster ✅ COMPLETED
 - **Effort**: 10 hours
 - **Owner**: Engineering
 - **Dependencies**: T1.1
 - **Tasks**:
   - [x] Create `team_members` table schema (in Prisma)
-  - [ ] Build team member add/edit modal
-  - [ ] Fields: Name, title, email, role (officer/director/shareholder)
-  - [ ] Add ownership percentage input (for 20%+ shareholders)
-  - [ ] Implement SSN collection with encryption
-  - [ ] Create team roster list view with edit/delete
-  - [ ] Add role-based badges (Officer, Director, 20%+ Owner)
-- **Acceptance**: User can add team members with all required fields
+  - [x] Build team member add/edit modal
+  - [x] Fields: Name, title, email, role (officer/director/shareholder)
+  - [x] Add ownership percentage input (for 20%+ shareholders)
+  - [x] Implement SSN collection with encryption
+  - [x] Create team roster list view with edit/delete
+  - [x] Add role-based badges (Officer, Director, 20%+ Owner)
+- **Acceptance**: User can add team members with all required fields ✅
 
 ### T1.3 — Bad Actor Questionnaire
 - **Effort**: 6 hours
@@ -159,21 +159,21 @@ This document breaks down implementation into sprints. Each task includes estima
   - [ ] Store questionnaire responses with timestamps
 - **Acceptance**: Bad actor check blocks filing if disqualifying events exist
 
-### T1.4 — Cap Table Management
+### T1.4 — Cap Table Management ✅ COMPLETED
 - **Effort**: 12 hours
 - **Owner**: Engineering
 - **Dependencies**: T1.1
 - **Tasks**:
   - [x] Create `cap_table_entries` table schema (in Prisma)
-  - [ ] Build shareholder add/edit form
-  - [ ] Fields: Name, share class, shares, price, issue date
-  - [ ] Create share class management (Common, Preferred Series A/B, Options)
-  - [ ] Implement CSV import with column mapping
-  - [ ] Auto-calculate ownership percentages
-  - [ ] Validate total shares vs authorized shares
-  - [ ] Create cap table summary view
+  - [x] Build shareholder add/edit form
+  - [x] Fields: Name, share class, shares, price, issue date
+  - [x] Create share class management (Common, Preferred Series A/B, Options)
+  - [x] Implement CSV import with column mapping
+  - [x] Auto-calculate ownership percentages
+  - [x] Validate total shares vs authorized shares
+  - [x] Create cap table summary view
   - [ ] Export cap table as PDF
-- **Acceptance**: User can manage cap table manually and via CSV import
+- **Acceptance**: User can manage cap table manually and via CSV import ✅
 
 ### T1.5 — EDGAR Access Wizard
 - **Effort**: 6 hours
