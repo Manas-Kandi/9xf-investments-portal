@@ -23,3 +23,25 @@ export const form1ACoverSchema = z.object({
 
 export type Form1APart1Data = z.infer<typeof form1APart1Schema>;
 export type Form1ACoverData = z.infer<typeof form1ACoverSchema>;
+
+export const form1ABusinessSchema = z.object({
+  narrative: z.string().min(50, "Please provide a detailed business description"),
+  employees: z.number().min(0),
+});
+
+export const form1AMdaSchema = z.object({
+  liquidity: z.string().min(50, "Discuss liquidity"),
+  capitalResources: z.string().min(50, "Discuss capital resources"),
+  resultsOfOperations: z.string().min(50, "Discuss results of operations"),
+  trendInfo: z.string().min(50, "Discuss trend information"),
+});
+
+export const form1ACompensationSchema = z.object({
+  narrative: z.string().min(50, "Describe compensation policies"),
+  totalCompensation: z.number().min(0),
+});
+
+export type Form1ABusinessData = z.infer<typeof form1ABusinessSchema>;
+export type Form1AMdaData = z.infer<typeof form1AMdaSchema>;
+export type Form1ACompensationData = z.infer<typeof form1ACompensationSchema>;
+
