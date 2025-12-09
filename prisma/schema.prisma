@@ -261,8 +261,22 @@ model Raise {
   documents       Document[]
   financialStatements FinancialStatement[]
   ttwCampaign     TtwCampaign?
+  investments     Investment[]
 
   @@map("raises")
+}
+
+model Investment {
+  id              String   @id @default(cuid())
+  raiseId         String
+  investorName    String
+  amount          Decimal  @db.Decimal(12, 2)
+  status          String   @default("CONFIRMED") // PENDING, CONFIRMED, CLEARED, CANCELLED
+  investedAt      DateTime @default(now())
+  
+  raise           Raise    @relation(fields: [raiseId], references: [id], onDelete: Cascade)
+
+  @@map("investments")
 }
 
 model TtwCampaign {
