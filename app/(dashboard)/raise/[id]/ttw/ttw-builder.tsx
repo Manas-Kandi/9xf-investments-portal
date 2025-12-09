@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { updateTtwCampaign, toggleTtwStatus } from '@/app/actions/ttw';
+import { updateTtwCampaign, toggleTtwStatus, convertLeadsToInvestors } from '@/app/actions/ttw';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Copy, ExternalLink, Users, Save, Globe } from 'lucide-react';
+import { Copy, ExternalLink, Users, Save, Globe, ArrowRightLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function TtwBuilder({ campaign, raiseId, leads }: { campaign: any, raiseId: string, leads: any[] }) {
@@ -28,6 +28,14 @@ export default function TtwBuilder({ campaign, raiseId, leads }: { campaign: any
   const handleStatusChange = async (status: 'DRAFT' | 'ACTIVE') => {
     if (confirm(`Change status to ${status}?`)) {
        await toggleTtwStatus(raiseId, status);
+    }
+  };
+
+  const handleConvert = async () => {
+    if (confirm('Convert leads to pending investments? This allows you to track them in the main dashboard.')) {
+      const res = await convertLeadsToInvestors(raiseId);
+      if (res.success) alert(`Converted ${res.count} leads.`);
+      else alert('Failed to convert leads.');
     }
   };
 
@@ -146,6 +154,9 @@ export default function TtwBuilder({ campaign, raiseId, leads }: { campaign: any
                      </div>
                    ))}
                    <Button variant="secondary" className="border border-white/10 w-full mt-2" size="sm">Export CSV</Button>
+                   <Button variant="secondary" className="border border-white/10 w-full mt-2" size="sm" onClick={handleConvert}>
+                     <ArrowRightLeft className="w-4 h-4 mr-2" /> Convert to Investors
+                   </Button>
                  </div>
                )}
              </CardContent>

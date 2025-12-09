@@ -109,3 +109,39 @@ export async function captureTtwLead(shareToken: string, data: { email: string, 
     return { error: 'Failed to submit interest' };
   }
 }
+
+export async function convertLeadsToInvestors(raiseId: string) {
+  try {
+    const campaign = await prisma.ttwCampaign.findUnique({ where: { raiseId }, include: { leads: true } });
+    if (!campaign) return { error: 'No campaign' };
+
+    let count = 0;
+    for (const lead of campaign.leads) {
+      if (!lead.interestAmount) continue;
+      
+      // Check if already exists (naive check by name/email match on investorName)
+      const identifier = lead.name || lead.email;
+      const existing = await prisma.investment.findFirst({
+        where: { raiseId, investorName: identifier }
+      });
+      
+      if (!existing) {
+        await prisma.investment.create({
+          data: {
+            raiseId,
+            investorName: identifier,
+            amount: lead.interestAmount,
+            status: 'PENDING'
+          }
+        });
+        count++;
+      }
+    }
+    
+    revalidatePath(`/raise/${raiseId}`);
+    return { success: true, count };
+  } catch (error) {
+    console.error('Conversion failed', error);
+    return { error: 'Failed to convert leads' };
+  }
+}

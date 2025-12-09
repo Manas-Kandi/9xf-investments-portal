@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getPublicCampaign } from '@/app/actions/ttw';
 import LeadCaptureForm from '@/components/ttw/lead-capture-form';
 import { SecDisclaimer } from '@/components/ttw/sec-disclaimer';
+import { Rule255Disclaimer } from '@/components/ttw/rule-255-disclaimer';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -19,6 +20,8 @@ export default async function PublicTtwPage({ params }: { params: Promise<{ slug
   if (!campaign || campaign.status !== 'ACTIVE') {
     return notFound();
   }
+
+  const isRegA = campaign.raise.regulation === 'REG_A_TIER_1' || campaign.raise.regulation === 'REG_A_TIER_2';
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-white/20">
@@ -48,7 +51,7 @@ export default async function PublicTtwPage({ params }: { params: Promise<{ slug
         </div>
       </div>
       
-      <SecDisclaimer />
+      {isRegA ? <Rule255Disclaimer offeringUrl={campaign.raise.portalContractUrl || undefined} /> : <SecDisclaimer />}
     </div>
   );
 }
