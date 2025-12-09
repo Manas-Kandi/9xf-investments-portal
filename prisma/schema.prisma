@@ -248,6 +248,10 @@ model Raise {
   
   portal          Portal?        @relation(fields: [portalId], references: [id])
 
+  // Public Page
+  slug            String?        @unique
+  offeringConfig  Json?          // { heroTitle, story, videoUrl, themeColor }
+
   // Financials
   priorRaisesAmount Decimal?     @default(0) @db.Decimal(12, 2)
   isFirstTimeIssuer Boolean?     @default(true)
