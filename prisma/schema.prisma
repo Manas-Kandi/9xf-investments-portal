@@ -168,8 +168,12 @@ model ShareClass {
   id              String          @id @default(cuid())
   companyId       String
   name            String          // Common, Preferred Series A, etc.
+  type            String          @default("COMMON")
   authorizedShares BigInt
+  parValue        Decimal?        @db.Decimal(10, 6)
   pricePerShare   Decimal?        @db.Decimal(10, 4)
+  votingRights    Boolean         @default(true)
+  liquidationPreference Decimal?  @db.Decimal(10, 2)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
@@ -184,6 +188,8 @@ model CapTableEntry {
   companyId       String
   shareClassId    String
   shareholderName String
+  shareholderType String     @default("OTHER")
+  email           String?
   shares          BigInt
   pricePerShare   Decimal    @db.Decimal(10, 4)
   issueDate       DateTime?
