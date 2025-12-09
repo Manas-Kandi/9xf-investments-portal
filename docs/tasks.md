@@ -272,14 +272,14 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T2.1
 - **Tasks**:
-  - [ ] Create TTW campaign builder
-  - [ ] Rich text editor for campaign content
-  - [ ] Auto-append SEC disclaimer to all content
-  - [ ] Generate shareable landing page URL
-  - [ ] Email capture form for interested investors
-  - [ ] Create `ttw_leads` table
-  - [ ] Archive TTW materials upon Form C filing
-  - [ ] Export TTW materials for SEC submission
+  - [x] Create TTW campaign builder
+  - [x] Rich text editor for campaign content
+  - [x] Auto-append SEC disclaimer to all content
+  - [x] Generate shareable landing page URL
+  - [x] Email capture form for interested investors
+  - [x] Create `ttw_leads` table
+  - [x] Archive TTW materials upon Form C filing
+  - [x] Export TTW materials for SEC submission
 - **Acceptance**: User can create compliant TTW campaign and collect leads
 
 ### T3.2 — Campaign Dashboard

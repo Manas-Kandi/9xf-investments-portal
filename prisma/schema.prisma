@@ -260,8 +260,46 @@ model Raise {
   filings         Filing[]
   documents       Document[]
   financialStatements FinancialStatement[]
+  ttwCampaign     TtwCampaign?
 
   @@map("raises")
+}
+
+model TtwCampaign {
+  id              String   @id @default(cuid())
+  raiseId         String   @unique
+  title           String
+  description     String
+  coverImageUrl   String?
+  targetLaunch    DateTime?
+  minInterest     Decimal? @db.Decimal(12, 2)
+  shareToken      String   @unique @default(cuid())
+  status          String   @default("DRAFT") // DRAFT, ACTIVE, ARCHIVED
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  raise           Raise    @relation(fields: [raiseId], references: [id], onDelete: Cascade)
+  leads           TtwLead[]
+
+  @@map("ttw_campaigns")
+}
+
+model TtwLead {
+  id              String   @id @default(cuid())
+  campaignId      String
+  email           String
+  name            String?
+  interestAmount  Decimal? @db.Decimal(12, 2)
+  message         String?
+  status          String   @default("NEW") // NEW, CONTACTED, CONVERTED
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  campaign        TtwCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@map("ttw_leads")
 }
 
 enum FinancialStatementType {
