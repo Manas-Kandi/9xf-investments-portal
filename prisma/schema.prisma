@@ -478,13 +478,31 @@ model Filing {
   // SEC tracking
   filedAt             DateTime?
   secAccessionNumber  String?
+  qualificationDate   DateTime?
   
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
 
   raise               Raise        @relation(fields: [raiseId], references: [id], onDelete: Cascade)
+  secComments         SecComment[]
 
   @@map("filings")
+}
+
+model SecComment {
+  id            String   @id @default(cuid())
+  filingId      String
+  letterDate    DateTime
+  commentText   String
+  responseDraft String?
+  status        String   @default("OPEN") // OPEN, DRAFTED, RESOLVED
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  filing        Filing   @relation(fields: [filingId], references: [id], onDelete: Cascade)
+
+  @@map("sec_comments")
 }
 
 // ============================================
