@@ -262,8 +262,54 @@ model Raise {
   financialStatements FinancialStatement[]
   ttwCampaign     TtwCampaign?
   investments     Investment[]
+  vendorEngagements VendorEngagement[]
 
   @@map("raises")
+}
+
+enum VendorType {
+  ATTORNEY
+  AUDITOR
+  BROKER_DEALER
+  MARKETING_AGENCY
+  TRANSFER_AGENT
+}
+
+model Vendor {
+  id          String     @id @default(cuid())
+  name        String
+  type        VendorType
+  logoUrl     String?
+  description String?
+  location    String?
+  website     String?
+  fees        String?
+  specialty   String?
+  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  engagements VendorEngagement[]
+
+  @@map("vendors")
+}
+
+model VendorEngagement {
+  id          String   @id @default(cuid())
+  raiseId     String
+  vendorId    String
+  status      String   @default("PENDING") // PENDING, SENT, SIGNED, ACTIVE, COMPLETED
+  quoteAmount Decimal? @db.Decimal(12, 2)
+  notes       String?
+  agreementUrl String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  raise       Raise    @relation(fields: [raiseId], references: [id], onDelete: Cascade)
+  vendor      Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("vendor_engagements")
 }
 
 model Investment {
