@@ -368,6 +368,7 @@ enum FilingType {
   FORM_C
   FORM_C_U
   FORM_C_AR
+  FORM_C_TR   // Termination of Reporting
   FORM_1_A
   FORM_1_A_A  // Amendment
   FORM_1_K
