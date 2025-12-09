@@ -243,7 +243,11 @@ model Raise {
   // Portal (for Reg CF)
   portalId        String?
   portalName      String?
+  portalStatus    String?        @default("pending") // pending, applied, accepted, rejected
+  portalContractUrl String?
   
+  portal          Portal?        @relation(fields: [portalId], references: [id])
+
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
@@ -252,6 +256,23 @@ model Raise {
   documents       Document[]
 
   @@map("raises")
+}
+
+model Portal {
+  id              String   @id @default(cuid())
+  name            String
+  logoUrl         String?
+  website         String?
+  cashFeePercent  Decimal  @db.Decimal(5, 2)
+  equityFeePercent Decimal @db.Decimal(5, 2)
+  features        String[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  raises          Raise[]
+
+  @@map("portals")
 }
 
 enum FilingType {
