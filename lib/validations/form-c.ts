@@ -35,3 +35,34 @@ export const formCRisksSchema = z.object({
 export type FormCIssuerData = z.infer<typeof formCIssuerSchema>;
 export type FormCOfferingData = z.infer<typeof formCOfferingSchema>;
 export type FormCRiskData = z.infer<typeof formCRisksSchema>;
+
+export const formCUseOfProceedsSchema = z.object({
+  items: z.array(z.object({
+    category: z.string().min(1, "Category is required"),
+    amount: z.number().min(0, "Amount must be positive"),
+    description: z.string().optional(),
+  })).min(1, "At least one item required"),
+  totalTarget: z.number(),
+  // Note: Validation against targetAmount happens in logic/UI usually
+});
+
+export const formCRelatedPartySchema = z.object({
+  hasTransactions: z.boolean(),
+  transactions: z.array(z.object({
+    specifiedPerson: z.string().min(1, "Person name is required"),
+    relationship: z.string().min(1, "Relationship is required"),
+    amount: z.number().min(0),
+    description: z.string().min(10, "Description required"),
+  })).optional(),
+});
+
+export const formCFinancialConditionSchema = z.object({
+  history: z.string().min(50, "Please provide detailed operating history"),
+  liquidity: z.string().min(50, "Please discuss liquidity and capital resources"),
+  capitalResources: z.string().min(50, "Please discuss historical capital resources"),
+});
+
+export type FormCUseOfProceedsData = z.infer<typeof formCUseOfProceedsSchema>;
+export type FormCRelatedPartyData = z.infer<typeof formCRelatedPartySchema>;
+export type FormCFinancialConditionData = z.infer<typeof formCFinancialConditionSchema>;
+

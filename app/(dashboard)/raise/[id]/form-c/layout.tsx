@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/db';
 import { getCompanyForUser } from '@/lib/company';
-import { Building2, Users, DollarSign, AlertTriangle } from 'lucide-react';
+import { Building2, Users, DollarSign, AlertTriangle, PieChart, FileText, Handshake, Eye } from 'lucide-react';
 
 export default async function FormCLayout({
   children,
@@ -22,7 +22,11 @@ export default async function FormCLayout({
     { name: 'Issuer Information', href: `/raise/${id}/form-c/issuer`, icon: Building2 },
     { name: 'Officers & Directors', href: `/raise/${id}/form-c/team`, icon: Users },
     { name: 'Offering Terms', href: `/raise/${id}/form-c/offering`, icon: DollarSign },
+    { name: 'Use of Proceeds', href: `/raise/${id}/form-c/use-of-proceeds`, icon: PieChart },
+    { name: 'Financial Condition', href: `/raise/${id}/form-c/financial-condition`, icon: FileText },
+    { name: 'Related Parties', href: `/raise/${id}/form-c/related-parties`, icon: Handshake },
     { name: 'Risk Factors', href: `/raise/${id}/form-c/risks`, icon: AlertTriangle },
+    { name: 'Review & Finalize', href: `/raise/${id}/form-c/preview`, icon: Eye },
   ];
 
   return (
