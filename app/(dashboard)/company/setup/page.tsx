@@ -54,12 +54,16 @@ export default function CompanySetupPage() {
 
   const handleAdditional = useCallback(async (data: CompanyAdditionalData) => {
     setIsSubmitting(true);
-    const finalData = { ...formData, ...data };
+    setError(null);
+    const finalData = { ...formData, ...data } as CompanyData;
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('Company data:', finalData);
+    const result = await createCompany(finalData);
+
+    if (result.error) {
+      setError(result.error);
+      setIsSubmitting(false);
+      return;
+    }
     
     setCompletedSteps(prev => [...new Set([...prev, 4])]);
     setIsSubmitting(false);

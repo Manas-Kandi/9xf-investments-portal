@@ -1,296 +1,49 @@
-'use client';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
+import { prisma } from '@/lib/db';
+import DashboardView from './dashboard-view';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { 
-  Building2, 
-  Users, 
-  PieChart, 
-  FileText, 
-  Plus,
-  ChevronRight,
-  CheckCircle2,
-  Circle,
-  AlertCircle
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+export default async function CompanyPage() {
+  const supabase = await createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
 
-// Mock data - in real app this would come from API
-const mockCompany = null; // Set to null to show empty state
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-export default function CompanyPage() {
-  // If no company exists, show setup prompt
-  if (!mockCompany) {
-    return <CompanyEmptyState />;
+  if (error || !user || !user.email) {
+    redirect('/login');
   }
 
-  return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-8"
-    >
-      {/* Company Header */}
-      <motion.div variants={itemVariants}>
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-start gap-6">
-              <div className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center">
-                <Building2 className="w-8 h-8 text-white/70" />
-              </div>
-              <div className="flex-1">
-                <h1 className="text-2xl font-bold text-white">Acme Corporation</h1>
-                <p className="text-white/50 text-sm">Delaware C Corporation</p>
-                <div className="flex items-center gap-4 mt-3">
-                  <Badge variant="success">Profile Complete</Badge>
-                  <span className="text-xs text-white/40">EIN: 12-3456789</span>
-                </div>
-              </div>
-              <Button variant="secondary" size="sm">
-                Edit Profile
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+  // 1. Find the Prisma user by email
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+  });
 
-      {/* Quick Stats */}
-      <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Users className="w-5 h-5 text-white/40" />
-              <div>
-                <p className="text-2xl font-bold text-white">5</p>
-                <p className="text-xs text-white/40">Team Members</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <PieChart className="w-5 h-5 text-white/40" />
-              <div>
-                <p className="text-2xl font-bold text-white">12</p>
-                <p className="text-xs text-white/40">Shareholders</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <FileText className="w-5 h-5 text-white/40" />
-              <div>
-                <p className="text-2xl font-bold text-white">3</p>
-                <p className="text-xs text-white/40">Documents</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+  if (!dbUser) {
+    // If user is not in Prisma yet, they definitely don't have a company
+    return <DashboardView company={null} />;
+  }
 
-      {/* Sections */}
-      <motion.div variants={itemVariants} className="grid lg:grid-cols-2 gap-6">
-        {/* Team Roster */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Team Roster</CardTitle>
-                <CardDescription>Officers, directors, and key shareholders</CardDescription>
-              </div>
-              <Button size="sm">
-                <Plus className="w-4 h-4 mr-1" />
-                Add
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {['John Doe', 'Jane Smith', 'Bob Johnson'].map((name, i) => (
-                <div key={name} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-medium text-white/70">
-                      {name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">{name}</p>
-                      <p className="text-xs text-white/40">{['CEO', 'CFO', 'Director'][i]}</p>
-                    </div>
-                  </div>
-                  <Badge variant={i === 0 ? 'success' : 'draft'}>
-                    {i === 0 ? 'Verified' : 'Pending'}
-                  </Badge>
-                </div>
-              ))}
-            </div>
-            <Link href="/company/team" className="flex items-center justify-center gap-2 mt-4 text-sm text-white/50 hover:text-white transition-colors">
-              View all team members
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </CardContent>
-        </Card>
+  // 2. Find the company linked to this user
+  const member = await prisma.companyMember.findFirst({
+    where: { userId: dbUser.id },
+    include: { company: true },
+  });
 
-        {/* Cap Table */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Cap Table</CardTitle>
-                <CardDescription>Ownership structure and share classes</CardDescription>
-              </div>
-              <Button size="sm">
-                <Plus className="w-4 h-4 mr-1" />
-                Add
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {[
-                { name: 'Common Stock', shares: '8,000,000', percent: '80%' },
-                { name: 'Series A Preferred', shares: '1,500,000', percent: '15%' },
-                { name: 'Option Pool', shares: '500,000', percent: '5%' },
-              ].map((item) => (
-                <div key={item.name} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <div>
-                    <p className="text-sm font-medium text-white">{item.name}</p>
-                    <p className="text-xs text-white/40">{item.shares} shares</p>
-                  </div>
-                  <span className="text-sm font-mono text-white/70">{item.percent}</span>
-                </div>
-              ))}
-            </div>
-            <Link href="/company/cap-table" className="flex items-center justify-center gap-2 mt-4 text-sm text-white/50 hover:text-white transition-colors">
-              View full cap table
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </CardContent>
-        </Card>
-      </motion.div>
-    </motion.div>
-  );
-}
+  if (!member || !member.company) {
+    return <DashboardView company={null} />;
+  }
 
-function CompanyEmptyState() {
-  const steps = [
-    { title: 'Create Company Profile', description: 'Legal name, entity type, EIN', status: 'current' },
-    { title: 'Add Team Members', description: 'Officers, directors, shareholders', status: 'locked' },
-    { title: 'Build Cap Table', description: 'Share classes and ownership', status: 'locked' },
-    { title: 'Complete EDGAR Access', description: 'SEC filing credentials', status: 'locked' },
-  ];
+  const company = member.company;
+
+  // 3. Fetch stats
+  const [teamCount, shareholderCount, documentCount] = await Promise.all([
+    prisma.teamMember.count({ where: { companyId: company.id } }),
+    prisma.capTableEntry.count({ where: { companyId: company.id } }),
+    prisma.document.count({ where: { companyId: company.id } }),
+  ]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-2xl mx-auto"
-    >
-      {/* Hero */}
-      <motion.div 
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <motion.div
-          className="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-6"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
-        >
-          <Building2 className="w-10 h-10 text-white/70" />
-        </motion.div>
-        <h1 className="text-3xl font-bold text-white mb-3">
-          Set Up Your Company
-        </h1>
-        <p className="text-white/60 max-w-md mx-auto">
-          Before you can start raising capital, we need some basic information about your company.
-        </p>
-      </motion.div>
-
-      {/* Steps */}
-      <motion.div
-        className="space-y-3 mb-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        {steps.map((step, index) => (
-          <motion.div
-            key={step.title}
-            className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${
-              step.status === 'current'
-                ? 'border-white/20 bg-white/5'
-                : 'border-white/10 opacity-50'
-            }`}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: step.status === 'locked' ? 0.5 : 1, x: 0 }}
-            transition={{ delay: 0.4 + index * 0.1 }}
-          >
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              step.status === 'current' ? 'bg-white/20' : 'bg-white/5'
-            }`}>
-              {step.status === 'complete' ? (
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-              ) : step.status === 'current' ? (
-                <Circle className="w-5 h-5 text-white" />
-              ) : (
-                <span className="text-sm text-white/30">{index + 1}</span>
-              )}
-            </div>
-            <div className="flex-1">
-              <p className={`text-sm font-medium ${
-                step.status === 'current' ? 'text-white' : 'text-white/50'
-              }`}>
-                {step.title}
-              </p>
-              <p className="text-xs text-white/40">{step.description}</p>
-            </div>
-            {step.status === 'current' && (
-              <ChevronRight className="w-5 h-5 text-white/30" />
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* CTA */}
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-      >
-        <Button asChild size="lg" className="px-8">
-          <Link href="/company/setup">
-            Get Started
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Link>
-        </Button>
-        <p className="text-xs text-white/30 mt-4">
-          Takes about 5 minutes to complete
-        </p>
-      </motion.div>
-    </motion.div>
+    <DashboardView 
+      company={company} 
+      stats={{ teamCount, shareholderCount, documentCount }} 
+    />
   );
 }
