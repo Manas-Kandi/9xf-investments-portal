@@ -199,12 +199,12 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T1.5
 - **Tasks**:
-  - [ ] Create Reg CF vs Reg A+ comparison page
-  - [ ] Build interactive questionnaire (raise amount, timeline, budget)
-  - [ ] Implement recommendation algorithm
-  - [ ] Allow manual pathway override
+  - [x] Create Reg CF vs Reg A+ comparison page
+  - [x] Build interactive questionnaire (raise amount, timeline, budget)
+  - [x] Implement recommendation algorithm
+  - [x] Allow manual pathway override
   - [x] Create `raises` table schema (in Prisma)
-  - [ ] Initialize raise record with selected pathway
+  - [x] Initialize raise record with selected pathway
 - **Acceptance**: User can select fundraising pathway with guidance
 
 ### T2.2 — Portal Marketplace
@@ -212,12 +212,12 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T2.1
 - **Tasks**:
-  - [ ] Create `portals` table with seed data (Wefunder, Republic, StartEngine)
-  - [ ] Portal fields: name, logo, cash_fee_percent, equity_fee_percent, features
-  - [ ] Build portal comparison grid
-  - [ ] Add "Select Portal" action
-  - [ ] Track portal application status (Applied, Accepted, Rejected)
-  - [ ] Store portal contract details
+  - [x] Create `portals` table with seed data (Wefunder, Republic, StartEngine)
+  - [x] Portal fields: name, logo, cash_fee_percent, equity_fee_percent, features
+  - [x] Build portal comparison grid
+  - [x] Add "Select Portal" action
+  - [x] Track portal application status (Applied, Accepted, Rejected)
+  - [x] Store portal contract details
 - **Acceptance**: User can compare and select funding portal
 
 ### T2.3 — Financial Tier Calculator
@@ -225,12 +225,12 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T2.1
 - **Tasks**:
-  - [ ] Calculate financial requirement tier based on raise amount (including prior Reg CF raises in last 12 months)
-  - [ ] Display tier requirements (CEO certified / Reviewed / Audited)
-  - [ ] Track if first-time vs repeat issuer (first-time: reviewed OK for $1.235M-$5M; repeat: audited required)
-  - [ ] Create `financial_statements` table
-  - [ ] Build upload interface for financial documents
-  - [ ] Track statement status (Draft, Under Review, Certified)
+  - [x] Calculate financial requirement tier based on raise amount (including prior Reg CF raises in last 12 months)
+  - [x] Display tier requirements (CEO certified / Reviewed / Audited)
+  - [x] Track if first-time vs repeat issuer (first-time: reviewed OK for $1.235M-$5M; repeat: audited required)
+  - [x] Create `financial_statements` table
+  - [x] Build upload interface for financial documents
+  - [x] Track statement status (Draft, Under Review, Certified)
 - **Acceptance**: System correctly determines financial requirements
 
 ### T2.4 — Form C Builder (Part 1)
@@ -239,14 +239,14 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Dependencies**: T2.3
 - **Tasks**:
   - [x] Create `filings` table schema (in Prisma)
-  - [ ] Build section-based form editor
-  - [ ] Section: Issuer Information (auto-populated from company profile)
-  - [ ] Section: Officers, Directors, and Owners (from team roster)
-  - [ ] Section: Offering Information (terms, price, min/max)
-  - [ ] Section: Risk Factors (rich text editor)
-  - [ ] Implement auto-save (30-second interval)
-  - [ ] Add progress indicator per section
-  - [ ] Real-time validation for required fields
+  - [x] Build section-based form editor
+  - [x] Section: Issuer Information (auto-populated from company profile)
+  - [x] Section: Officers, Directors, and Owners (from team roster)
+  - [x] Section: Offering Information (terms, price, min/max)
+  - [x] Section: Risk Factors (rich text editor)
+  - [x] Implement auto-save (30-second interval)
+  - [x] Add progress indicator per section
+  - [x] Real-time validation for required fields
 - **Acceptance**: User can complete first 4 sections of Form C
 
 ### T2.5 — Form C Builder (Part 2)
@@ -254,13 +254,13 @@ This document breaks down implementation into sprints. Each task includes estima
 - **Owner**: Engineering
 - **Dependencies**: T2.4
 - **Tasks**:
-  - [ ] Section: Use of Proceeds (table with categories and amounts)
-  - [ ] Section: Financial Condition (narrative + financials attachment)
-  - [ ] Section: Related Party Transactions
-  - [ ] Section: Other Material Information
-  - [ ] Generate Form C preview as PDF
-  - [ ] Export Form C data for portal submission
-  - [ ] Mark Form C as "Ready to File"
+  - [x] Section: Use of Proceeds (table with categories and amounts)
+  - [x] Section: Financial Condition (narrative + financials attachment)
+  - [x] Section: Related Party Transactions
+  - [x] Section: Other Material Information
+  - [x] Generate Form C preview as PDF
+  - [x] Export Form C data for portal submission
+  - [x] Mark Form C as "Ready to File"
 - **Acceptance**: User can complete all Form C sections and export
 
 ---
