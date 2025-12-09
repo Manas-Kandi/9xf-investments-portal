@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { Logo } from '@/components/logo';
+import NotificationBell from '@/components/notifications/notification-bell';
 import Link from 'next/link';
 
 export default async function DashboardLayout({
@@ -39,6 +40,7 @@ export default async function DashboardLayout({
           </div>
           
           <div className="flex items-center gap-4">
+            <NotificationBell />
             <span className="text-sm text-white/50 hidden sm:block">
               {user.email}
             </span>
